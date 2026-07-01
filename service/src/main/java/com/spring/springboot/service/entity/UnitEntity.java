@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -54,25 +56,21 @@ public class UnitEntity {
     @Column(name = "CL")
     private String cool_chek_characteristic;
 
-    @Column(name = "WILL")
+    @Column(name = "Will")
     private String willpower_characteristic;
 
-    @Column(name = "INTEL")
+    @Column(name = "Intel")
     private String intellect_characteristic;
 
     @Column(name = "XP")
     private String xp;
 
+    // ===== НОВЫЕ ПОЛЯ =====
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 }
