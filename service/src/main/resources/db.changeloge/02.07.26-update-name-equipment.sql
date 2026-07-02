@@ -1,0 +1,1 @@
+ALTER TABLE equipment RENAME COLUMN `name` TO equipment_name;

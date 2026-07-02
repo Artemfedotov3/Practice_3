@@ -65,7 +65,6 @@ public class UnitEntity {
     @Column(name = "XP")
     private String xp;
 
-    // ===== НОВЫЕ ПОЛЯ =====
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

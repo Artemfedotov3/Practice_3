@@ -8,15 +8,15 @@ import java.util.List;
 
 public interface UnitService {
 
-    List<UnitResponseDto> getAllUnits();          // ✅ должен быть
+    List<UnitResponseDto> getAllUnits();
 
-    UnitResponseDto getUnitById(Long id);          // ✅ должен быть
+    UnitResponseDto getUnitById(Long id);
 
-    UnitResponseDto createUnit(UnitRequestDto unitRequest);  // ✅ должен быть
+    UnitResponseDto createUnit(UnitRequestDto unitRequest);
 
-    UnitResponseDto updateUnit(Long id, UnitRequestDto unitRequest);  // ✅ должен быть
+    UnitResponseDto updateUnit(Long id, UnitRequestDto unitRequest);
 
-    void deleteUnit(Long id);                      // ✅ должен быть
+    void deleteUnit(Long id);
 
-    UnitEntity findUnitEntityById(Long id);        // ✅ должен быть
+    UnitEntity findUnitEntityById(Long id);
 }

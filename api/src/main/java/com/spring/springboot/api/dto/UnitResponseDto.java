@@ -20,29 +20,29 @@ public class UnitResponseDto {
 
     private String type;
 
-    private String m;       // Movement
+    private String m;
 
-    private String ws;      // Weapon Skill
+    private String ws;
 
-    private String bs;      // Ballistic Skill
+    private String bs;
 
-    private String s;       // Strength
+    private String s;
 
-    private String t;       // Toughness
+    private String t;
 
-    private String w;       // Wounds
+    private String w;
 
-    private String i;       // Initiative
+    private String i;
 
-    private String a;       // Attacks
+    private String a;
 
-    private String ld;      // Leadership
+    private String ld;
 
-    private String cl;      // Cool
+    private String cl;
 
-    private String will;    // Willpower
+    private String will;
 
-    private String intel;   // Intelligence
+    private String intel;
 
-    private String xp;      // Experience Points
+    private String xp;
 }

@@ -47,4 +47,45 @@ public class RabbitConfig {
                 .to(unitExchange())
                 .with("unit.deleted");
     }
+
+    @Bean
+    public Queue equipmentCreatedQueue(){
+        return new Queue("equipment.created.queue");
+    }
+
+    @Bean
+    public Queue equipmentUpdatedQueue(){
+        return new Queue("equipment.updated.queue");
+    }
+
+    @Bean
+    public Queue equipmentDeletedQueue(){
+        return new Queue("equipment.deleted.queue");
+    }
+
+    @Bean
+    public TopicExchange equipmentExchange(){
+        return new TopicExchange("equipment.exchange");
+    }
+
+    @Bean
+    public Binding equipmentCreatedBinding(){
+        return BindingBuilder.bind(equipmentCreatedQueue())
+                .to(equipmentExchange())
+                .with("equipment.exchange");
+    }
+
+    @Bean
+    public Binding equipmentUpdatedBinding(){
+        return BindingBuilder.bind(equipmentUpdatedQueue())
+                .to(equipmentExchange())
+                .with("equipment.exchange");
+    }
+
+    @Bean
+    public Binding equpmentDeletedBinding() {
+        return BindingBuilder.bind(equipmentDeletedQueue())
+                .to(equipmentExchange())
+                .with("equipment.deleted");
+    }
 }

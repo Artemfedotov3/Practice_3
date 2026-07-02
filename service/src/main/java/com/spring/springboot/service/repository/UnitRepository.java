@@ -8,6 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface UnitRepository extends JpaRepository<UnitEntity, Long> {
+
     Optional<UnitEntity> findByName(String name);
+
     boolean existsByName(String name);
 }

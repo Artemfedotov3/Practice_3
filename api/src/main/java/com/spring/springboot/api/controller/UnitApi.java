@@ -16,7 +16,7 @@ public interface UnitApi {
      * GET /api/v1/units_models
      */
     @GetMapping(ApiConstants.UNIT_PATH)
-    ResponseEntity<List<UnitResponseDto>> getAllUsers();
+    ResponseEntity<List<UnitResponseDto>> getAllUnits();
 
     /**
      * Получить юнит по ID
