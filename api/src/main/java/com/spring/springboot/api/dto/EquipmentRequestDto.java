@@ -9,39 +9,29 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UnitRequestDto {
+public class EquipmentRequestDto {
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
-    private String name;
+    private String equipment_name;
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     private String type;
 
-    private String M;
+    private String s;
 
-    private String WS;
+    private String L;
 
-    private String BS;
+    private int ST;
 
-    private String S;
+    private String ap;
 
-    private String T;
+    private int damage;
 
-    private String W;
+    private int cost;
 
-    private String I;
+    private String range;
 
-    private String A;
-
-    private String LD;
-
-    private String CL;
-
-    private String WILL;
-
-    private String INTEL;
-
-    private String XP;
+    private String traits;
 }

@@ -6,4 +6,9 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <include file="classpath:db.changeloge/001-add-timestamps-to-units.sql"/>
+    <include file="classpath:db.changeloge/001-add-equipment-to-units.sql"/>
+    <include file="classpath:db.changeloge/002-drop-description-from-equipment.sql"/>
+    <include file="classpath:db.changeloge/02.07.26-update-name-equipment.sql"/>
+    <include file="classpath:db.changeloge/02.07.26-create-traits-equipment-time_14_13.sql"/>
+    <include file="classpath:db.changeloge/02.07.26-rename-range-equipment-time_14_59.sql"/>
 </databaseChangeLog>

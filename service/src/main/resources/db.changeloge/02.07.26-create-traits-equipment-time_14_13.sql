@@ -1,0 +1,2 @@
+ALTER TABLE equipment
+    ADD COLUMN Traits VARCHAR(200);

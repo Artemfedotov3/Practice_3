@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UnitServiceImpl implements UnitService {  // ← добавить implements
+public class UnitServiceImpl implements UnitService {
 
-    private final UnitRepository unitRepository;        // ← ДОБАВИТЬ!
+    private final UnitRepository unitRepository;
     private final UnitMapper unitMapper;
     private final UnitEventPublisher eventPublisher;
 
@@ -42,10 +42,6 @@ public class UnitServiceImpl implements UnitService {  // ← добавить i
     @Override
     @Transactional
     public UnitResponseDto createUnit(UnitRequestDto unitRequest) {
-        // Проверка на дубликат (если нужно)
-        // if (unitRepository.existsByName(unitRequest.getName())) {
-        //     throw new RuntimeException("Unit with name " + unitRequest.getName() + " already exists");
-        // }
 
         UnitEntity unit = new UnitEntity();
         unit.setName(unitRequest.getName());
@@ -66,7 +62,7 @@ public class UnitServiceImpl implements UnitService {  // ← добавить i
 
         UnitEntity savedUnit = unitRepository.save(unit);
 
-        // 🔔 ОТПРАВИТЬ СОБЫТИЕ В RABBITMQ
+
         eventPublisher.publishUnitCreated(savedUnit.getId(), savedUnit.getName(), savedUnit.getType());
         log.info("Unit created event sent for unit ID: {}", savedUnit.getId());
 
@@ -96,7 +92,7 @@ public class UnitServiceImpl implements UnitService {  // ← добавить i
 
         UnitEntity updatedUnit = unitRepository.save(unit);
 
-        // 🔔 ОТПРАВИТЬ СОБЫТИЕ В RABBITMQ
+
         eventPublisher.publishUnitUpdated(updatedUnit.getId(), updatedUnit.getName(), updatedUnit.getType());
         log.info("Unit updated event sent for unit ID: {}", updatedUnit.getId());
 
@@ -109,7 +105,7 @@ public class UnitServiceImpl implements UnitService {  // ← добавить i
         UnitEntity unit = findUnitEntityById(id);
         unitRepository.delete(unit);
 
-        // 🔔 ОТПРАВИТЬ СОБЫТИЕ В RABBITMQ
+
         eventPublisher.publishUnitDeleted(id);
         log.info("Unit deleted event sent for unit ID: {}", id);
     }

@@ -1,0 +1,1 @@
+ALTER TABLE equipment RENAME COLUMN `range` TO range_value;
