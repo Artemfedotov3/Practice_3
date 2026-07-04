@@ -9,29 +9,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EquipmentRequestDto {
+public class ArmourRequestDto {
 
     @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 equipments")
-    private String equipment_name;
+    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 armours")
+    private String armourName;
 
     @NotBlank(message = "Type is required")
-    @Size(min = 2, max = 50, message = "Type must be between 2 and 50 equipments")
+    @Size(min = 2, max = 50, message = "Type must be between 2 and 50 armours")
     private String type;
 
-    private String s;
-
-    private String L;
-
-    private int ST;
-
-    private String ap;
-
-    private int damage;
+    @NotBlank(message = "Description is required")
+    @Size(min = 2, max = 400, message = "Description must be between 2 and 400 armours")
+    private String description;
 
     private int cost;
-
-    private String range;
-
-    private String traits;
 }

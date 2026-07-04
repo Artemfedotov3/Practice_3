@@ -1,0 +1,1 @@
+ALTER TABLE armour RENAME COLUMN description TO description_text;

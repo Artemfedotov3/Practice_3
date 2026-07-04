@@ -59,7 +59,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
         equipmentEventPublisher.publishEquipmentCreated(savedEquipment.getId(), savedEquipment.getEquipmentName(),
                 savedEquipment.getType());
-        log.info("Equipment created event sent for unit ID: {}", savedEquipment.getId());
+        log.info("Equipment created event sent for equipment ID: {}", savedEquipment.getId());
 
         return equipmentMapper.toDto(savedEquipment);
     }

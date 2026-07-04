@@ -1,0 +1,1 @@
+ALTER TABLE armour RENAME COLUMN armour_name TO armor_name;

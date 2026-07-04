@@ -16,6 +16,9 @@ public final class ApiConstants {
     public static final String EQUIPMENT_PATH = BASE_PATH + "/equipment";
     public static final String EQUIPMENT_BY_ID_PATH = EQUIPMENT_PATH + "/{id}";
 
+    public static final String ARMOUR_PATH = BASE_PATH + "/armour";
+    public static final String ARMOUR_BY_ID_PATH = ARMOUR_PATH + "/{id}";
+
     // ===== Сообщения =====
     public static final String UNIT_CREATED = "Unit successfully created";
     public static final String UNIT_UPDATED = "Unit successfully updated";
@@ -26,4 +29,9 @@ public final class ApiConstants {
     public static final String EQUIPMENT_UPDATED = "Equipment successfully updated";
     public static final String EQUIPMENT_DELETED = "Equipment successfully deleted";
     public static final String EQUIPMENT_NOT_FOUND = "Equipment not found with id: ";
+
+    public static final String ARMOUR_CREATED = "Armour successfully created";
+    public static final String ARMOUR_UPDATED = "Armour successfully updated";
+    public static final String ARMOUR_DELETED = "Armour successfully deleted";
+    public static final String ARMOUR_NOT_FOUND = "Armour not found with id: ";
 }
