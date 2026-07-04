@@ -72,14 +72,14 @@ public class RabbitConfig {
     public Binding equipmentCreatedBinding(){
         return BindingBuilder.bind(equipmentCreatedQueue())
                 .to(equipmentExchange())
-                .with("equipment.exchange");
+                .with("equipment.created");
     }
 
     @Bean
     public Binding equipmentUpdatedBinding(){
         return BindingBuilder.bind(equipmentUpdatedQueue())
                 .to(equipmentExchange())
-                .with("equipment.exchange");
+                .with("equipment.updated");
     }
 
     @Bean
@@ -87,5 +87,40 @@ public class RabbitConfig {
         return BindingBuilder.bind(equipmentDeletedQueue())
                 .to(equipmentExchange())
                 .with("equipment.deleted");
+    }
+
+    @Bean
+    public Queue armourCreatedQueue(){
+        return new Queue("armour.created.queue", true);
+    }
+
+    @Bean
+    public Queue armourUpdatedQueue(){
+        return new Queue("armour.updated.queue", true);
+    }
+
+    @Bean
+    public Queue armourDeletedQueue(){
+        return new Queue("armour.deleted.queue", true);
+    }
+
+    @Bean
+    public TopicExchange armourExchange(){
+        return new TopicExchange("armour.exchange");
+    }
+
+    @Bean
+    public Binding armourCreatedBinding(){
+        return BindingBuilder.bind(armourCreatedQueue()).to(armourExchange()).with("armour.created");
+    }
+
+    @Bean
+    public Binding armourUpdatedBinding(){
+        return BindingBuilder.bind(armourUpdatedQueue()).to(armourExchange()).with("armour.updated");
+    }
+
+    @Bean
+    public Binding armourDeletedBinding(){
+        return BindingBuilder.bind(armourDeletedQueue()).to(armourExchange()).with("armour.deleted");
     }
 }
