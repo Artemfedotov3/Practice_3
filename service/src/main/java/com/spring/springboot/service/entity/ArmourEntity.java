@@ -32,6 +32,10 @@ public class ArmourEntity {
     @Column(name = "cost")
     private int cost;
 
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private UnitEntity unit;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

@@ -4,9 +4,11 @@ import com.spring.springboot.api.constants.ApiConstants;
 import com.spring.springboot.api.dto.ArmourRequestDto;
 import com.spring.springboot.api.dto.ArmourResponseDto;
 import com.spring.springboot.service.entity.ArmourEntity;
+import com.spring.springboot.service.entity.UnitEntity;
 import com.spring.springboot.service.mapper.ArmourMapper;
 import com.spring.springboot.service.rabbit.ArmourEventPublisher;
 import com.spring.springboot.service.repository.ArmourRepository;
+import com.spring.springboot.service.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,34 @@ public class ArmourServiceImpl implements ArmourService {
     private final ArmourRepository armourRepository;
     private final ArmourMapper armourMapper;
     private final ArmourEventPublisher armourEventPublisher;
+    private final UnitRepository unitRepository;
+
+    @Override
+    @Transactional
+    public ArmourResponseDto addArmourToUnit(Long unitId, ArmourRequestDto dto){
+
+        UnitEntity unit = unitRepository.findById(unitId)
+                .orElseThrow(() -> new RuntimeException("Unit not found with id: " + unitId));
+
+        ArmourEntity armour = new ArmourEntity();
+        armour.setArmourName(dto.getArmourName());
+        armour.setType(dto.getType());
+        armour.setUnit(unit);
+
+        ArmourEntity saved = armourRepository.save(armour);
+
+        return armourMapper.toDto(saved);
+    }
+
+    @Override
+    public List<ArmourResponseDto> getArmourByUnitId(Long unitId) {
+        UnitEntity unit = unitRepository.findById(unitId)
+                .orElseThrow(() -> new RuntimeException("Unit not found"));
+
+        return unit.getArmourList().stream()
+                .map(armourMapper::toDto)
+                .collect(Collectors.toList());
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -41,12 +71,16 @@ public class ArmourServiceImpl implements ArmourService {
     @Transactional
     public ArmourResponseDto createArmour(ArmourRequestDto armourRequest){
 
+        UnitEntity unit = unitRepository.findById(armourRequest.getUnitId())
+                .orElseThrow(() -> new RuntimeException("Unit not found with id: " + armourRequest.getUnitId()));
+
         ArmourEntity armour = new ArmourEntity();
 
         armour.setArmourName(armourRequest.getArmourName());
         armour.setType(armourRequest.getType());
         armour.setDescriptionText(armourRequest.getDescription());
         armour.setCost(armourRequest.getCost());
+        armour.setUnit(unit);
 
         ArmourEntity savedArmour = armourRepository.save(armour);
 
@@ -61,12 +95,16 @@ public class ArmourServiceImpl implements ArmourService {
     @Transactional
     public ArmourResponseDto updateArmour(Long id, ArmourRequestDto armourRequest){
 
+        UnitEntity unit = unitRepository.findById(armourRequest.getUnitId())
+                .orElseThrow(() -> new RuntimeException("Unit not found with id: " + armourRequest.getUnitId()));
+
         ArmourEntity armour = findArmourEntityById(id);
 
         armour.setArmourName(armourRequest.getArmourName());
         armour.setType(armourRequest.getType());
         armour.setDescriptionText(armourRequest.getDescription());
         armour.setCost(armourRequest.getCost());
+        armour.setUnit(unit);
 
         ArmourEntity updatedArmour = armourRepository.save(armour);
 

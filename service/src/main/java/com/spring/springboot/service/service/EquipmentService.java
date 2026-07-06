@@ -19,4 +19,8 @@ public interface EquipmentService {
     void deleteEquipment(Long id);
 
     EquipmentEntity findEquipmentEntityById(Long id);
+
+    EquipmentResponseDto addEquipmentToUnit(Long unitId, EquipmentRequestDto dto);
+
+    List<EquipmentResponseDto> getEquipmentByUnitId(Long unitId);
 }

@@ -50,6 +50,10 @@ public class EquipmentEntity {
     @Column(name = "traits")
     private String Traits;
 
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private UnitEntity unit;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
