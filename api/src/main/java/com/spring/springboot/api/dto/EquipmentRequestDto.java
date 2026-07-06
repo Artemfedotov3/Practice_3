@@ -34,4 +34,6 @@ public class EquipmentRequestDto {
     private String range;
 
     private String traits;
+
+    private Long unitId;
 }

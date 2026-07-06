@@ -4,9 +4,11 @@ import com.spring.springboot.api.constants.ApiConstants;
 import com.spring.springboot.api.dto.EquipmentRequestDto;
 import com.spring.springboot.api.dto.EquipmentResponseDto;
 import com.spring.springboot.service.entity.EquipmentEntity;
+import com.spring.springboot.service.entity.UnitEntity;
 import com.spring.springboot.service.mapper.EquipmentMapper;
 import com.spring.springboot.service.rabbit.EquipmentEventPublisher;
 import com.spring.springboot.service.repository.EquipmentRepository;
+import com.spring.springboot.service.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,31 @@ public class EquipmentServiceImpl implements EquipmentService {
     private final EquipmentRepository equipmentRepository;
     private final EquipmentMapper equipmentMapper;
     private final EquipmentEventPublisher equipmentEventPublisher;
+    private final UnitRepository unitRepository;
+
+    @Override
+    @Transactional
+    public EquipmentResponseDto addEquipmentToUnit(Long unitId, EquipmentRequestDto dto){
+
+        UnitEntity unit = unitRepository.findById(unitId)
+                .orElseThrow(() -> new RuntimeException("Unit not found with id: " + unitId));
+
+        EquipmentEntity equipment = new EquipmentEntity();
+        equipment.setEquipmentName(dto.getEquipment_name());
+        equipment.setType(dto.getType());
+        equipment.setUnit(unit);
+
+        EquipmentEntity saved = equipmentRepository.save(equipment);
+
+        return equipmentMapper.toDto(saved);
+    }
+
+    @Override
+    public List<EquipmentResponseDto> getEquipmentByUnitId(Long unitId){
+        UnitEntity unit = unitRepository.findById(unitId).orElseThrow(() -> new RuntimeException("Unit not found"));
+
+        return unit.getEquipmentList().stream().map(equipmentMapper::toDto).collect(Collectors.toList());
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -42,6 +69,9 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Transactional
     public EquipmentResponseDto createEquipment(EquipmentRequestDto equipmentRequest) {
 
+        UnitEntity unit = unitRepository.findById(equipmentRequest.getUnitId())
+                .orElseThrow(() -> new RuntimeException("Unit not found"));
+
         EquipmentEntity equipment = new EquipmentEntity();
 
         equipment.setEquipmentName(equipmentRequest.getEquipment_name());
@@ -54,6 +84,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         equipment.setCost(equipmentRequest.getCost());
         equipment.setRange(equipmentRequest.getRange());
         equipment.setTraits(equipmentRequest.getTraits());
+        equipment.setUnit(unit);
 
         EquipmentEntity savedEquipment = equipmentRepository.save(equipment);
 
@@ -68,6 +99,9 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Transactional
     public EquipmentResponseDto updateEquipment(Long id, EquipmentRequestDto equipmentRequest){
 
+        UnitEntity unit = unitRepository.findById(equipmentRequest.getUnitId())
+                .orElseThrow(() -> new RuntimeException("Unit not found"));
+
         EquipmentEntity equipment = findEquipmentEntityById(id);
 
         equipment.setEquipmentName(equipmentRequest.getEquipment_name());
@@ -80,6 +114,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         equipment.setCost(equipmentRequest.getCost());
         equipment.setRange(equipmentRequest.getRange());
         equipment.setTraits(equipmentRequest.getTraits());
+        equipment.setUnit(unit);
 
         EquipmentEntity updatedEquipment = equipmentRepository.save(equipment);
 

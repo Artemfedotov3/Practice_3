@@ -1,0 +1,2 @@
+ALTER TABLE armour
+    ADD COLUMN unit_id VARCHAR(200);

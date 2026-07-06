@@ -43,4 +43,9 @@ public class ArmourController {
         armourService.deleteArmour(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/by-unit/{unitId}")
+    public ResponseEntity<List<ArmourResponseDto>> getArmourByUnitId(@PathVariable Long unitId) {
+        return ResponseEntity.ok(armourService.getArmourByUnitId(unitId));
+    }
 }

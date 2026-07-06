@@ -49,4 +49,9 @@ public class EquipmentController {
         equipmentService.deleteEquipment(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/unit/{unitId}")
+    public ResponseEntity<List<EquipmentResponseDto>> getEquipmentByUnitId(@PathVariable Long unitId){
+        return ResponseEntity.ok(equipmentService.getEquipmentByUnitId(unitId));
+    }
 }

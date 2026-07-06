@@ -15,5 +15,7 @@
     <include file="classpath:db.changeloge/02.07.26-create-cost-armour-time_18_29.sql"/>
     <include file="classpath:db.changeloge/04.07.26-update-name-armor-time_16_03.sql"/>
     <include file="classpath:db.changeloge/04.07.26-update-description-time_16_08.sql"/>
+    <include file="classpath:db.changeloge/06.07.26-create-armour-unit_id-time_13_17.sql"/>
+    <include file="classpath:db.changeloge/06.07.26-create-equipment-unit_id-time_13_18.sql"/>
 
 </databaseChangeLog>

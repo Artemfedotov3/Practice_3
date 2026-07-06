@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "units_models")
@@ -64,6 +66,12 @@ public class UnitEntity {
 
     @Column(name = "XP")
     private String xp;
+
+    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
+    private List<EquipmentEntity> equipmentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
+    private List<ArmourEntity> armourList = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -19,4 +19,8 @@ public interface ArmourService {
     void deleteArmour(Long id);
 
     ArmourEntity findArmourEntityById(Long id);
+
+    ArmourResponseDto addArmourToUnit(Long unitId, ArmourRequestDto dto);
+
+    List<ArmourResponseDto> getArmourByUnitId(Long unitId);
 }

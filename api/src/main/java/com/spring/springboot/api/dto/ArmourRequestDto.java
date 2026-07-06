@@ -24,4 +24,6 @@ public class ArmourRequestDto {
     private String description;
 
     private int cost;
+
+    private Long unitId;
 }
