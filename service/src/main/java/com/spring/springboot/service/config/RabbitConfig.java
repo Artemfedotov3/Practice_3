@@ -123,4 +123,42 @@ public class RabbitConfig {
     public Binding armourDeletedBinding(){
         return BindingBuilder.bind(armourDeletedQueue()).to(armourExchange()).with("armour.deleted");
     }
+
+    @Bean
+    public Queue exoticBeastCreatedQueue(){
+        return new Queue("exotic.beast.created.queue");
+    }
+
+    @Bean
+    public Queue exoticBeastUpdatedQueue(){
+        return new Queue("exotic.beast.updated.queue");
+    }
+
+    @Bean
+    public Queue exoticBeastDeletedQueue(){
+        return new Queue("exotic.beast.deleted.queue");
+    }
+
+    @Bean
+    public TopicExchange exoticBeastExchange(){
+        return new TopicExchange("exotic.beast.exchange");
+    }
+
+    @Bean
+    public Binding exoticBeastCreatedBinding(){
+        return BindingBuilder.bind(exoticBeastCreatedQueue())
+                .to(exoticBeastExchange()).with("exotic.beast.created");
+    }
+
+    @Bean
+    public Binding exoticBeastUpdatedBinding(){
+        return BindingBuilder.bind(exoticBeastUpdatedQueue())
+                .to(exoticBeastExchange()).with("exotic.beast.updated");
+    }
+
+    @Bean
+    public Binding exoticBeastDeletedBinding(){
+        return BindingBuilder.bind(exoticBeastDeletedQueue())
+                .to(exoticBeastExchange()).with("exotic.beast.deleted");
+    }
 }
