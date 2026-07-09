@@ -73,6 +73,9 @@ public class UnitEntity {
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
     private List<ArmourEntity> armourList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
+    private List<ExoticBeastEntity> exoticBeastList = new ArrayList<>();
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

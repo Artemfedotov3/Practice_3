@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "DTO with armour data")
-public class ArmourResponseDto {
+@Schema(description = "DTO with exotic beast data")
+public class ExoticBeastResponseDto {
 
     private Long id;
 
-    private String armourName;
-
-    private String type;
+    private String name;
 
     private String description;
+
+    private int move;
 
     private int cost;
 
