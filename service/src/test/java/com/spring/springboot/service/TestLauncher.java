@@ -19,7 +19,7 @@ public class TestLauncher {
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder
                 .request()
                 .selectors(DiscoverySelectors.selectPackage("com.spring.springboot.service"))
-                .filters(TagFilter.includeTags("unit", "equipment", "armor"))
+                .filters(TagFilter.includeTags("unit", "equipment", "armor", "exoticBeast"))
                 .build();
         launcher.execute(request, summaryGeneratingListener);
 
