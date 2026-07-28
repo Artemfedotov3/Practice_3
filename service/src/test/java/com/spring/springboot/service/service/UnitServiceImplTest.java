@@ -12,13 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
 @Tag("service")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 @ExtendWith(MockitoExtension.class)
 public class UnitServiceImplTest {
@@ -102,6 +104,70 @@ public class UnitServiceImplTest {
         verify(eventPublisher, times(1)).publishUnitCreated(anyLong(), anyString(), anyString());
     }
 
+    @Test
+    @DisplayName("Update unit test")
+    void updateUnitTest(){
+        Long unitId = 1L;
+
+        UnitEntity existingUnit = new UnitEntity();
+        existingUnit.setId(unitId);
+        existingUnit.setName("Intercessor");
+        existingUnit.setType("Troops");
+        existingUnit.setMove_characteristic("6");
+
+        UnitRequestDto updateRequest = new UnitRequestDto();
+        updateRequest.setName("Updated Intercessor");
+        updateRequest.setType("Elite");
+        updateRequest.setM("7");
+        updateRequest.setWS("2+");
+
+        UnitEntity updatedUnit = new UnitEntity();
+        updatedUnit.setId(unitId);
+        updatedUnit.setName("Updated Intercessor");
+        updatedUnit.setType("Elite");
+        updatedUnit.setMove_characteristic("7");
+
+        UnitResponseDto response = new UnitResponseDto();
+        response.setId(unitId);
+        response.setName("Updated Intercessor");
+        response.setType("Elite");
+
+        when(unitRepository.findById(unitId)).thenReturn(Optional.of(existingUnit));
+        when(unitRepository.save(any(UnitEntity.class))).thenReturn(updatedUnit);
+        when(unitMapper.toDto(any(UnitEntity.class))).thenReturn(response);
+
+        UnitResponseDto result = unitServiceImpl.updateUnit(unitId, updateRequest);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(unitId);
+        assertThat(result.getName()).isEqualTo("Updated Intercessor");
+        assertThat(result.getType()).isEqualTo("Elite");
+
+        verify(unitRepository, times(1)).findById(unitId);
+        verify(unitRepository, times(1)).save(any(UnitEntity.class));
+        verify(eventPublisher, times(1)).publishUnitUpdated(anyLong(), anyString(), anyString());
+    }
+
+    @Test
+    @DisplayName("Should delete existing unit test")
+    void deleteUnitTest() {
+
+        UnitEntity entity = new UnitEntity();
+        entity.setId(1L);
+        entity.setName("Intercessor");
+        entity.setType("Troops");
+
+        when(unitRepository.findById(1L)).thenReturn(Optional.of(entity));
+        doNothing().when(unitRepository).delete(entity);
+        doNothing().when(eventPublisher).publishUnitDeleted(anyLong());
+
+        unitServiceImpl.deleteUnit(1L);
+
+        verify(unitRepository, times(1)).findById(1L);
+        verify(unitRepository, times(1)).delete(entity);
+        verify(eventPublisher, times(1)).publishUnitDeleted(1L);
+    }
+
     @AfterEach
     void deleteDataFromDatabase(){
         System.out.println("After each: " + this);
@@ -111,5 +177,4 @@ public class UnitServiceImplTest {
     static void closeConnectionPool(){
         System.out.println("After all: ");
     }
-
 }

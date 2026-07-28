@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 @Tag("armor")
 @Tag("service")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 @ExtendWith(MockitoExtension.class)
 public class ArmourServiceImplTest {
@@ -105,6 +105,79 @@ public class ArmourServiceImplTest {
         verify(armourRepository, times(1)).save(any(ArmourEntity.class));
         verify(armourEventPublisher, times(1)).publishArmourCreated(anyLong(), anyString(),
                 anyString());
+    }
+
+    @Test
+    @DisplayName("Update armour test method")
+    void updateArmourTest(){
+
+        Long armourId = 1L;
+
+        UnitEntity unitEntity = new UnitEntity();
+        unitEntity.setId(1L);
+        unitEntity.setName("Intercessor");
+
+        ArmourEntity existingArmour = ArmourEntity.builder()
+                .id(1L)
+                .armourName("Mesh armour")
+                .type("Light")
+                .build();
+
+        ArmourRequestDto updateRequest = ArmourRequestDto.builder()
+                .armourName("Heavy mesh armour")
+                .type("Heavy")
+                .unitId(1L)
+                .build();
+
+        ArmourEntity updateArmour = ArmourEntity.builder()
+                .id(1L)
+                .armourName("Heavy mesh armour")
+                .type("Heavy")
+                .build();
+
+        ArmourResponseDto response = ArmourResponseDto.builder()
+                .id(1L)
+                .armourName("Heavy mesh armour")
+                .type("Heavy")
+                .build();
+
+        when(unitRepository.findById(1L)).thenReturn(Optional.of(unitEntity));
+        when(armourRepository.findById(armourId)).thenReturn(Optional.of(existingArmour));
+        when(armourRepository.save(any(ArmourEntity.class))).thenReturn(updateArmour);
+        when(armourMapper.toDto(any(ArmourEntity.class))).thenReturn(response);
+
+        ArmourResponseDto result = armourServiceImpl.updateArmour(armourId, updateRequest);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getArmourName()).isEqualTo("Heavy mesh armour");
+        assertThat(result.getType()).isEqualTo("Heavy");
+
+        verify(unitRepository, times(1)).findById(1L);
+        verify(armourRepository, times(1)).save(any(ArmourEntity.class));
+        verify(armourEventPublisher, times(1)).publishArmourUpdated(anyLong(), anyString(),
+                anyString());
+    }
+
+    @Test
+    @DisplayName("Should delete existing armor test")
+    void deleteArmourTest(){
+
+        ArmourEntity entity = ArmourEntity.builder()
+                .id(1L)
+                .armourName("Mesh armour")
+                .type("Light")
+                .build();
+
+        when(armourRepository.findById(1L)).thenReturn(Optional.of(entity));
+        doNothing().when(armourRepository).delete(entity);
+        doNothing().when(armourEventPublisher).publishArmourDeleted(anyLong());
+
+        armourServiceImpl.deleteArmour(1L);
+
+        verify(armourRepository, times(1)).findById(1L);
+        verify(armourRepository,times(1)).delete(entity);
+        verify(armourEventPublisher, times(1)).publishArmourDeleted(1L);
     }
 
     @AfterEach

@@ -12,4 +12,6 @@ public interface UnitRepository extends JpaRepository<UnitEntity, Long> {
     Optional<UnitEntity> findByName(String name);
 
     boolean existsByName(String name);
+
+    Long id(Long id);
 }

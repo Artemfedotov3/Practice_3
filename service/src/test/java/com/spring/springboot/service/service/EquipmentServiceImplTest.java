@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 @Tag("equipment")
 @Tag("service")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 @ExtendWith(MockitoExtension.class)
 public class EquipmentServiceImplTest {
@@ -111,6 +111,79 @@ public class EquipmentServiceImplTest {
         verify(equipmentRepository, times(1)).save(any(EquipmentEntity.class));
         verify(equipmentEventPublisher, times(1)).publishEquipmentCreated(anyLong(), anyString(),
                 anyString());
+    }
+
+    @Test
+    @DisplayName("Update equipment test method")
+    void updateEquipmentTest(){
+
+        Long equipmentId = 1L;
+
+        UnitEntity unitEntity = new UnitEntity();
+        unitEntity.setId(1L);
+        unitEntity.setName("Intercessor");
+
+        EquipmentEntity existingEquipment = EquipmentEntity.builder()
+                .id(1L)
+                .equipmentName("Venom caster")
+                .type("Toxin")
+                .build();
+
+        EquipmentRequestDto updateRequest = EquipmentRequestDto.builder()
+                .equipment_name("Heavy venom caster")
+                .type("Heavy")
+                .unitId(1L)
+                .build();
+
+        EquipmentEntity updateEquipment = EquipmentEntity.builder()
+                .id(1L)
+                .equipmentName("Heavy venom caster")
+                .type("Heavy")
+                .build();
+
+        EquipmentResponseDto response = EquipmentResponseDto.builder()
+                .id(1L)
+                .equipment_name("Heavy venom caster")
+                .type("Heavy")
+                .build();
+
+        when(unitRepository.findById(1L)).thenReturn(Optional.of(unitEntity));
+        when(equipmentRepository.findById(equipmentId)).thenReturn(Optional.of(existingEquipment));
+        when(equipmentRepository.save(any(EquipmentEntity.class))).thenReturn(updateEquipment);
+        when(equipmentMapper.toDto(any(EquipmentEntity.class))).thenReturn(response);
+
+        EquipmentResponseDto result = equipmentServiceImpl.updateEquipment(equipmentId, updateRequest);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(equipmentId);
+        assertThat(result.getEquipment_name()).isEqualTo("Heavy venom caster");
+        assertThat(result.getType()).isEqualTo("Heavy");
+
+        verify(unitRepository, times(1)).findById(1L);
+        verify(equipmentRepository, times(1)).save(any(EquipmentEntity.class));
+        verify(equipmentEventPublisher, times(1)).publishEquipmentUpdated(anyLong(),
+                anyString(), anyString());
+    }
+
+    @Test
+    @DisplayName("Should delete existing equipment test")
+    void deleteEquipmentTest(){
+
+        EquipmentEntity entity = EquipmentEntity.builder()
+                .id(1L)
+                .equipmentName("Venom caster")
+                .type("Toxin")
+                .build();
+
+        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(entity));
+        doNothing().when(equipmentRepository).delete(entity);
+        doNothing().when(equipmentEventPublisher).publishEquipmentDeleted(anyLong());
+
+        equipmentServiceImpl.deleteEquipment(1L);
+
+        verify(equipmentRepository, times(1)).findById(1L);
+        verify(equipmentRepository, times(1)).delete(entity);
+        verify(equipmentEventPublisher, times(1)).publishEquipmentDeleted(1L);
     }
 
     @AfterEach
