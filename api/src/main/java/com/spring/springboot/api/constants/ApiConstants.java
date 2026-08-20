@@ -22,6 +22,9 @@ public final class ApiConstants {
     public static final String EXOTIC_BEAST_PATH = BASE_PATH + "/exotic_beasts";
     public static final String EXOTIC_BEAST_BY_ID_PATH = EXOTIC_BEAST_PATH + "/{id}";
 
+    public static final String UPGRADE_PATH = BASE_PATH + "/upgrate";
+    public static final String UPGRADE_BY_ID_PATH = UPGRADE_PATH + "/{id}";
+
     // ===== Сообщения =====
     public static final String UNIT_CREATED = "Unit successfully created";
     public static final String UNIT_UPDATED = "Unit successfully updated";
@@ -41,5 +44,10 @@ public final class ApiConstants {
     public static final String EXOTIC_BEAST_CREATED = "Exotic beast successfully created";
     public static final String EXOTIC_BEAST_UPDATED = "Exotic beast successfully updated";
     public static final String EXOTIC_BEAST_DELETED = "Exotic beast successfully deleted";
-    public static final String EXOTIC_BEAST_NOT_FOUND = "Exotic not found with id: ";
+    public static final String EXOTIC_BEAST_NOT_FOUND = "Exotic beast not found with id: ";
+
+    public static final String UPGRADE_CREATED = "Upgrate successfully created";
+    public static final String UPGRADE_UPDATED = "Upgrate successfully updated";
+    public static final String UPGRADE_DELETED = "Upgrate successfully deleted";
+    public static final String UPGRADE_NOT_FOUND = "Upgrate not found with id: ";
 }

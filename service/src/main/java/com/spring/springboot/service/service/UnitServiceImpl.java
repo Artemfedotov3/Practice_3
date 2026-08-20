@@ -59,6 +59,7 @@ public class UnitServiceImpl implements UnitService {
         unit.setWillpower_characteristic(unitRequest.getWILL());
         unit.setIntellect_characteristic(unitRequest.getINTEL());
         unit.setXp(unitRequest.getXP());
+        unit.setCost(unitRequest.getCost());
 
         UnitEntity savedUnit = unitRepository.save(unit);
 
@@ -89,6 +90,7 @@ public class UnitServiceImpl implements UnitService {
         unit.setWillpower_characteristic(unitRequest.getWILL());
         unit.setIntellect_characteristic(unitRequest.getINTEL());
         unit.setXp(unitRequest.getXP());
+        unit.setCost(unitRequest.getCost());
 
         UnitEntity updatedUnit = unitRepository.save(unit);
 

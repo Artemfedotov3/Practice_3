@@ -18,5 +18,10 @@
     <include file="classpath:db.changeloge/06.07.26-create-armour-unit_id-time_13_17.sql"/>
     <include file="classpath:db.changeloge/06.07.26-create-equipment-unit_id-time_13_18.sql"/>
     <include file="classpath:db.changeloge/001-add-exotic_beasts-units.sql"/>
+    <include file="classpath:db.changeloge/001-add-upgrate-to-units.sql"/>
+    <include file="classpath:db.changeloge/19.08.26-column-cost-units_models_table-time_15_33.sql"/>
+    <include file="classpath:db.changeloge/19.08.26-rename-table-upgrate-to-upgrade-time_15_59.sql"/>
+    <include file="classpath:db.changeloge/001-add-update-table-upgrade.sql"/>
+    <include file="classpath:db.changeloge/19.08.26-rename-column-table_upgrade-time_16_05.sql"/>
 
 </databaseChangeLog>

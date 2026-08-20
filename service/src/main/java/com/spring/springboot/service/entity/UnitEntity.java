@@ -67,6 +67,9 @@ public class UnitEntity {
     @Column(name = "XP")
     private String xp;
 
+    @Column(name = "cost")
+    private int cost;
+
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
     private List<EquipmentEntity> equipmentList = new ArrayList<>();
 
@@ -75,6 +78,9 @@ public class UnitEntity {
 
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
     private List<ExoticBeastEntity> exoticBeastList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
+    private List<UpgradeEntity> upgradeList = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

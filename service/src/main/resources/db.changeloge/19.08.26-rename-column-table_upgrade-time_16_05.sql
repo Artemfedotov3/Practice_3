@@ -1,0 +1,1 @@
+ALTER TABLE upgrade RENAME COLUMN upgrate_name TO upgrade_name;
