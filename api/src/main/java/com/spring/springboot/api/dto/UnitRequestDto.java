@@ -15,8 +15,8 @@ public class UnitRequestDto {
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     private String name;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    @NotBlank(message = "Type is required")
+    @Size(min = 2, max = 50, message = "Type must be between 2 and 50 characters")
     private String type;
 
     private String M;
@@ -44,4 +44,6 @@ public class UnitRequestDto {
     private String INTEL;
 
     private String XP;
+
+    private int cost;
 }

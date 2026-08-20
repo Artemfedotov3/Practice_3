@@ -1,0 +1,1 @@
+RENAME TABLE upgrate TO upgrade;

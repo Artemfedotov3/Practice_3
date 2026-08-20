@@ -161,4 +161,39 @@ public class RabbitConfig {
         return BindingBuilder.bind(exoticBeastDeletedQueue())
                 .to(exoticBeastExchange()).with("exotic.beast.deleted");
     }
+
+    @Bean
+    public Queue upgradeCreatedQueue(){
+        return new Queue("upgrade.created.queue");
+    }
+
+    @Bean
+    public Queue upgradeUpdatedQueue(){
+        return new Queue("upgrade.updated.queue");
+    }
+
+    @Bean
+    public Queue upgradeDeletedQueue(){
+        return new Queue("upgrade.deleted.queue");
+    }
+
+    @Bean
+    public TopicExchange upgradeExchange(){
+        return new TopicExchange("upgrade.exchange");
+    }
+
+    @Bean
+    public Binding upgradeCreatedBinding(){
+        return BindingBuilder.bind(upgradeCreatedQueue()).to(upgradeExchange()).with("upgrade.created");
+    }
+
+    @Bean
+    public Binding upgradeUpdatedBinding(){
+        return BindingBuilder.bind(upgradeUpdatedQueue()).to(upgradeExchange()).with("upgrade.updated");
+    }
+
+    @Bean
+    public Binding upgradeDeletedBinding(){
+        return BindingBuilder.bind(upgradeDeletedQueue()).to(upgradeExchange()).with("upgrade.deleted");
+    }
 }

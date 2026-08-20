@@ -1,6 +1,5 @@
 package com.spring.springboot.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,4 +44,6 @@ public class UnitResponseDto {
     private String intel;
 
     private String xp;
+
+    private int cost;
 }
