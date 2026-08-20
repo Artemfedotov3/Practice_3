@@ -22,7 +22,7 @@ public final class ApiConstants {
     public static final String EXOTIC_BEAST_PATH = BASE_PATH + "/exotic_beasts";
     public static final String EXOTIC_BEAST_BY_ID_PATH = EXOTIC_BEAST_PATH + "/{id}";
 
-    public static final String UPGRADE_PATH = BASE_PATH + "/upgrate";
+    public static final String UPGRADE_PATH = BASE_PATH + "/upgrade";
     public static final String UPGRADE_BY_ID_PATH = UPGRADE_PATH + "/{id}";
 
     // ===== Сообщения =====
