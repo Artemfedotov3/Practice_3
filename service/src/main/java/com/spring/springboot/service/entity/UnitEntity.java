@@ -68,7 +68,7 @@ public class UnitEntity {
     private String xp;
 
     @Column(name = "cost")
-    private int cost;
+    private Integer cost;
 
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
     private List<EquipmentEntity> equipmentList = new ArrayList<>();

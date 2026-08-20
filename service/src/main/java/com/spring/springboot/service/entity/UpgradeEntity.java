@@ -1,5 +1,6 @@
 package com.spring.springboot.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class UpgradeEntity {
     private Long id;
 
     @Column(name = "upgrade_name", nullable = false, length = 50)
+    @JsonProperty("upgrade_name")
     private String upgradeName;
 
     @Column(name = "description")
